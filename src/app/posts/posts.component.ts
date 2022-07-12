@@ -32,4 +32,8 @@ export class PostsComponent implements OnInit {
     })
   }
 
+  updatePost() {
+    
+  }
+
 }
