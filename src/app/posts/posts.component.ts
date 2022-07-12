@@ -18,7 +18,6 @@ export class PostsComponent implements OnInit {
     this.postService.getPosts()
     .subscribe((response: IPost[]) => {
       this.posts = response;
-      console.log(response)
     })
   }
 
