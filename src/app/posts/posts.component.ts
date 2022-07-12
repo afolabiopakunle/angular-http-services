@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { IPosts } from './posts';
+import { IPost } from './post';
 
 @Component({
   selector: 'app-posts',
@@ -9,15 +9,26 @@ import { IPosts } from './posts';
 })
 export class PostsComponent implements OnInit {
 
-  posts: IPosts[];
+  posts: IPost[];
+  url = 'https://jsonplaceholder.typicode.com/posts';
 
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
-    this.http.get('https://jsonplaceholder.typicode.com/posts')
-    .subscribe((response: IPosts[]) => {
+    this.http.get(this.url)
+    .subscribe((response: IPost[]) => {
       this.posts = response;
-      console.log(this.posts);
+    })
+  }
+
+  createPost(input: HTMLInputElement) {
+    let post: IPost = {title: input.value, id: 0}
+    input.value = '';
+    this.http.post(this.url, post)
+    .subscribe((response: any) => {
+      post.id = response.id
+      this.posts.splice(0, 0, post)
+      console.log(post)
     })
   }
 
