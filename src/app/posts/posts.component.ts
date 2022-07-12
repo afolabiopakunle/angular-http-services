@@ -18,6 +18,10 @@ export class PostsComponent implements OnInit {
     this.postService.getPosts()
     .subscribe((response: IPost[]) => {
       this.posts = response;
+    }, (error: Response) => {
+      if(error.status === 404) {
+        console.log('error')
+      }
     })
   }
 
